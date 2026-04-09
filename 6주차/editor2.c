@@ -15,7 +15,7 @@ typedef struct
 {
 	Node* H;
 	Node* T;
-  Node* cursor;
+  Node* cursor; //cursor를 포인터로 변환
   int size;
 } DListType;
 
@@ -32,7 +32,7 @@ void init(DListType* DL)
 {
 	DL->H = makeNode(0);
 	DL->T = makeNode(0);
-	DL->cursor = DL->H;
+	DL->cursor = DL->H;//cursor를 가장 앞 head로 선언
 
 	DL->H->next = DL->T;
 	DL->H->previous = NULL;
@@ -49,14 +49,14 @@ int isEmpty(DListType* DL)
 }
 
 void moveLeft(DListType* DL){
-  if(DL->cursor != DL->H)
-    DL->cursor = DL->cursor->previous;
+  if(DL->cursor != DL->H)//cursor가 가장 앞 head가 아니면
+    DL->cursor = DL->cursor->previous;//cursor를 하나 앞으로 이동
   return;
 }
 
 void moveRight(DListType* DL){
-  if(DL->cursor->next != DL->T){
-    DL->cursor = DL->cursor->next;
+  if(DL->cursor->next != DL->T){//cursor가 tail이 아니면
+    DL->cursor = DL->cursor->next;//cursor를 하나 뒤로 이동
     return;
   }
 }
@@ -65,6 +65,7 @@ void insertChar(DListType* DL, element e)
 {
 	Node* node = makeNode(e);
 
+	//cursor의 위치가 곧 삽입할 위치이므로 cursor의 위치에 값을 삽입
 	node->next = DL->cursor->next;
 	node->previous = DL->cursor;
 
@@ -72,7 +73,7 @@ void insertChar(DListType* DL, element e)
 	DL->cursor->next = node;
 
 	DL->size++;
-  DL->cursor = node;
+    DL->cursor = node;
 }
 
 /*void insertFirst(DListType* DL, element e)
@@ -87,13 +88,13 @@ void insertLast(DListType* DL, element e)
 
 element deleteChar(DListType* DL)
 {
-	if(isEmpty(DL)) return 0;
+  if(isEmpty(DL)) return 0;
   if(DL->cursor == DL->H) return 0;
-	
+  //cursor가 가리키는 위치에 있는 값 delete
   Node* p = DL->cursor;
 
 	element data = p->data;
-
+    //p의 앞 뒤를 연결해서 값을 삭제
 	p->previous->next = p->next;
 	p->next->previous = p->previous;
   
