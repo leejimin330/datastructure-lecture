@@ -135,6 +135,4 @@ int main()
       deleteChar(&DL);
     printText(&DL);
   }
-
-	printText(&DL);
 }
